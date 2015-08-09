@@ -1,0 +1,13 @@
+# Dashboard
+GET         /                                         com.fuscus.seien.appli.controller.api.DashboardController.index
+
+# Issue
+GET         /issue/$id<[\-a-z0-9]+>                   com.fuscus.seien.appli.controller.api.IssueController.show(id: String)
+POST        /issue                                    com.fuscus.seien.appli.controller.api.IssueController.create
+
+# Seien
+POST        /issue/$issueID<[\-a-z0-9]+>/seien        com.fuscus.seien.appli.controller.api.SeienController.create(issueID: String)
+GET         /seien/$id<[\-a-z0-9]+>                   com.fuscus.seien.appli.controller.api.SeienController.show(id: String)
+
+
+

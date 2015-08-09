@@ -1,0 +1,11 @@
+{
+  "id": "49363130-3dc8-11e5-be74-6abc604fd9cd",
+  "title": "test-title",
+  "uri": "http://test.com/",
+  "healthCheckUri": "http://test.com/",
+  "description": "test-description",
+  "createdAt": "2015-08-10 00:00:00",
+  "updateAt": "2015-08-10 00:00:00",
+  "lockVersion" : 0,
+  "isDeleted": 0
+}

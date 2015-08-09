@@ -1,0 +1,25 @@
+# -*- mode: org -*-
+#+TITLE: Seien-Backend
+#+AUTHOR: watawuwu
+#+LANGUAGE: en
+#+OPTIONS: H:1 num:nil toc:nil ^:nil author:t creator:nil timestamp:t preamble: \n:t
+[[./public/images/logo.png]]
+
+* Overview
+- This repository is the backend system of "[[https://github.com/watawuwu/seien][Seien]]"
+- This application is a virtual application for writing Functional Programming in Scala.
+
+
+* Restrict
+- Playframework2.4 >=
+- Slick3.0 >=
+- AwsSdk
+- Docker
+- Kamon
+- DDD
+
+
+* License
+This software is released under the MIT License, see [[./LICENSE][LICENSE]]
+
+
