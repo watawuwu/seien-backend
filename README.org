@@ -5,6 +5,9 @@
 #+OPTIONS: H:1 num:nil toc:nil ^:nil author:t creator:nil timestamp:t preamble: \n:t
 [[./public/images/logo.png]]
 
+* Notice
+- *This app is the way design the core part*
+
 * Overview
 - This repository is the backend system of "[[https://github.com/watawuwu/seien][Seien]]"
 - This application is a virtual application for writing Functional Programming in Scala.
