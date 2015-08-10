@@ -6,7 +6,7 @@ tmp
 .history
 dist
 /.idea*
-/*.iml
+*.iml
 /.idea_modules
 /.classpath
 /.project
