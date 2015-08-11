@@ -17,7 +17,7 @@ import scala.concurrent.Future
 /**
  * Created by watawuwu on 15/07/03.
  */
-object IssueControllerSpec extends PlaySpecification with Results with Mockito with TestContext {
+object IssueControllerSpec extends PlaySpecification with Mockito with TestContext {
 
   isolated
 
@@ -40,7 +40,7 @@ object IssueControllerSpec extends PlaySpecification with Results with Mockito w
     }
   }
 
-  "Issue#create2" should {
+  "Issue#create" should {
     "should be valid" in {
 
       val issue = expectIssue
