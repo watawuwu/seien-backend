@@ -1,6 +1,6 @@
 package com.fuscus.seien.appli.controller
 
-import com.fuscus.seien.appli.cont.{FormCont, ActionCont}
+import com.fuscus.seien.appli.cont.{ FormCont, ActionCont }
 import play.api.Logger
 import play.api.data.Form
 import play.api.libs.concurrent.Execution.Implicits.defaultContext

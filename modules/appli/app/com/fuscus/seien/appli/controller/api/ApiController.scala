@@ -4,7 +4,7 @@ import com.fuscus.seien.appli.cont._
 import com.fuscus.seien.appli.controller.AppController
 import play.api.mvc._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Created by watawuwu on 15/08/05.
