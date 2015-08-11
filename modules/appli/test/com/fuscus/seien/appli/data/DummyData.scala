@@ -3,7 +3,7 @@ package com.fuscus.seien.appli.data
 import scala.io.Source
 
 /**
- * Created by wataru.matsui on 15/01/08.
+ * Created by watawuwu on 15/01/08.
  */
 trait DummyData {
   val dataPath: String

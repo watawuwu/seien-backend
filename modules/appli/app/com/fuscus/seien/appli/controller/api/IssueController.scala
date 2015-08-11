@@ -42,7 +42,7 @@ trait IssueController extends ApiController with Json4s {
     }
   }
 
-  def show(id: String) = ActionCont.run { implicit request =>
+  def show(id: String) = run { implicit request =>
     for (issue <- showCont(id)) yield Ok(Extraction.decompose(issue))
   }
 
@@ -70,7 +70,7 @@ trait IssueController extends ApiController with Json4s {
     }
   }
 
-  def create = ActionCont.run { implicit request =>
+  def create = run { implicit request =>
     for {
       input <- simpleFormValidate(form, request)
       issue <- createCont(input)
