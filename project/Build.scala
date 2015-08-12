@@ -2,10 +2,10 @@ import com.typesafe.sbt.SbtScalariform._
 import play.sbt.Play.autoImport._
 import sbt.Keys._
 import sbt._
-import scoverage.ScoverageSbtPlugin
 import com.typesafe.sbt.SbtNativePackager.autoImport._
 import com.typesafe.sbt.packager.docker.DockerPlugin.autoImport._
 import com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._
+import scoverage.ScoverageSbtPlugin.ScoverageKeys._
 
 object BuildSettings {
   val buildOrg = "com.fuscus"
@@ -20,6 +20,7 @@ object BuildSettings {
     //scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls"),
     parallelExecution in Test := false,
     testOptions += Tests.Argument(TestFrameworks.Specs2, "console", "junitxml"),
+    coverageExcludedPackages := "<empty>;Reverse.*;.*?javascript;controllers.debug.*?",
     doc in Compile <<= target.map(_ / "none"),
     crossPaths := false
   ) ++ scalariformSettings
@@ -32,7 +33,6 @@ object BuildSettings {
       resolvers ++= Resolvers.mainResolvers,
       libraryDependencies ++= Dependencies.mainDependencies,
       javaOptions in Test ++= mainJavaOptions,
-      ScoverageSbtPlugin.ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;.*?javascript;controllers.debug.*?",
       // Added the tool directory to Universal
       mappings in Universal ++= (baseDirectory(_ / "tool").value ** "*").get.map { f: File =>
         f -> ("tool/" + f.getName)
