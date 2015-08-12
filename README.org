@@ -5,8 +5,13 @@
 #+OPTIONS: H:1 num:nil toc:nil ^:nil author:t creator:nil timestamp:t preamble: \n:t
 [[./public/images/logo.png]]
 
+[[https://coveralls.io/github/watawuwu/seien-backend?branch=master][file:https://coveralls.io/repos/watawuwu/seien-backend/badge.svg?branch=master&service=github]]
+[[https://circleci.com/gh/watawuwu/seien-backend][file:https://circleci.com/gh/watawuwu/seien-backend.svg?style=svg]]
+
+
 * Notice
 - *This app is the way design the core part*
+
 
 * Overview
 - This repository is the backend system of "[[https://github.com/watawuwu/seien][Seien]]"
