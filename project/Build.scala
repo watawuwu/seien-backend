@@ -69,7 +69,9 @@ object BuildSettings {
 object Resolvers {
   val akkaQuartz = "us.theatr" at "http://repo.theatr.us"
   val scalaz = "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
-  val resolvers = Seq(akkaQuartz, scalaz)
+  val typesafe = Resolver.url("Typesafe Ivy releases", url("https://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns)
+
+  val resolvers = Seq(akkaQuartz, scalaz, typesafe)
   val mainResolvers: Seq[Resolver] = resolvers
   val infraResolvers: Seq[Resolver] = resolvers
   val domainResolvers: Seq[Resolver] = resolvers
