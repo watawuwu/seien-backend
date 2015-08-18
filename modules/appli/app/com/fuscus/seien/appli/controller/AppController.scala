@@ -1,6 +1,7 @@
 package com.fuscus.seien.appli.controller
 
 import com.fuscus.seien.appli.cont.{ FormCont, ActionCont }
+import com.fuscus.seien.infra.core.AppLogger
 import play.api.Logger
 import play.api.data.Form
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -11,9 +12,7 @@ import scala.concurrent.Future
 /**
  * Created by watawuwu on 15/07/02.
  */
-trait AppController extends Controller {
-
-  val logger: Logger
+trait AppController extends Controller with AppLogger {
 
   val securityResponseHeaderSeq = List(
     "Content-Type-Options" -> "nosniff",

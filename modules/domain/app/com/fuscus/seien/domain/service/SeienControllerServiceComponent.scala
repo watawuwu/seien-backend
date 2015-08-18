@@ -2,8 +2,9 @@ package com.fuscus.seien.domain.service
 
 import com.fuscus.seien.domain.entity.{ Seien, SeienID }
 import com.fuscus.seien.domain.repository.SeienRepositoryComponent
+import com.fuscus.seien.infra.core.AppLogger
 import com.fuscus.seien.infra.repository.HasJdbcDriver
-import play.api.Play
+import play.api.{ Logger, Play }
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 
@@ -26,9 +27,11 @@ trait SeienServiceComponent extends Service {
 object SeienServiceRegistry
     extends SeienServiceComponent
     with SeienRepositoryComponent
-    with HasJdbcDriver {
+    with HasJdbcDriver
+    with AppLogger {
   val service = new SeienService
   val seienRepository = new SeienRepository
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
+  lazy val logger = Logger(this.getClass)
 }
 

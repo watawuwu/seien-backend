@@ -5,7 +5,7 @@ import com.fuscus.seien.domain.repository.IssueRepositoryComponent
 import com.fuscus.seien.infra.core.{ NotFoundError, ConflictError, Error }
 import com.fuscus.seien.infra.repository.HasJdbcDriver
 import com.fuscus.seien.infra.vo.URI
-import play.api.Play
+import play.api.{ Logger, Play }
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 
@@ -47,8 +47,10 @@ trait IssueServiceComponent extends Service {
 object IssueServiceRegistry
     extends IssueServiceComponent
     with IssueRepositoryComponent
-    with HasJdbcDriver {
+    with HasJdbcDriver
+    with AppLogger {
   lazy val service = new IssueService
   lazy val issueRepository = new IssueRepository
   lazy val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
+  lazy val logger = Logger(this.getClass)
 }

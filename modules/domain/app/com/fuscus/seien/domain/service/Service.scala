@@ -1,4 +1,6 @@
 package com.fuscus.seien.domain.service
 
+import com.fuscus.seien.infra.core.AppLogger
+
 // @todo Not think of a good name
-trait Service
+trait Service extends AppLogger
