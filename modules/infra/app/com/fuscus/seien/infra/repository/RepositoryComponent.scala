@@ -1,10 +1,9 @@
 package com.fuscus.seien.infra.repository
 
-import com.fuscus.seien.infra.core.{ Entity, Identifier }
+import com.fuscus.seien.infra.core.{Entity, Identifier}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import scala.concurrent.Future
-
 trait RepositoryComponent[E <: Entity[PK], PK <: Identifier[_]] extends ColumnTypeMapper {
   self: HasJdbcDriver =>
 
@@ -30,17 +29,17 @@ trait RepositoryComponent[E <: Entity[PK], PK <: Identifier[_]] extends ColumnTy
     def count: Future[Int] =
       db.run(query.length.result)
 
-    def insert(entity: E): Future[Unit] =
-      db.run(query += entity).map(_ => ())
+    def insert(entity: E): Future[Int] =
+      db.run(query += entity)
 
-    def insert(entity: List[E]): Future[Unit] =
-      db.run(query ++= entity).map(_ => ())
+    def insert(entity: List[E]): Future[Option[Int]] =
+      db.run(query ++= entity)
 
-    def delete(id: PK): Future[Unit] =
-      db.run(filterQuery(id).delete).map(_ => ())
+    def delete(id: PK): Future[Int] =
+      db.run(filterQuery(id).delete)
 
-    def update(entity: E): Future[Unit] =
-      db.run(filterQuery(entity.id).update(entity)).map(_ => ())
+    def update(entity: E): Future[Int] =
+      db.run(filterQuery(entity.id).update(entity))
 
     def list(limit: Int, offset: Int = 0): Future[List[E]] =
       db.run(query.drop(limit).take(offset).result).map(_.toList)
