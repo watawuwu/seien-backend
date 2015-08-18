@@ -6,9 +6,9 @@ import com.fuscus.seien.appli.output.CustomSerializer._
 import com.fuscus.seien.domain.entity.{ Issue, IssueID }
 import com.fuscus.seien.domain.service.IssueServiceRegistry
 import com.fuscus.seien.domain.service.IssueServiceRegistry._
-import com.fuscus.seien.infra.core.UUID
-import org.json4s._
+import com.fuscus.seien.infra.core.{ ConflictError, UUID }
 import com.github.tototoshi.play2.json4s.native._
+import org.json4s._
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
@@ -56,17 +56,14 @@ trait IssueController extends ApiController with Json4s {
   def createCont(input: IssueInput): ActionCont[Issue] = {
     ActionCont {
       (f: Issue => Future[Result]) =>
-        service.create(
-          input.title,
-          input.uri,
-          input.healthCheckUri,
-          input.desc) match {
-            case Left(error) =>
-              logger.error(error.toString)
-              Future.successful(Conflict)
-            case Right(issue) =>
-              f(issue)
+        service.create(input.title, input.uri, input.healthCheckUri, input.desc).flatMap {
+          case Left(error) => error match {
+            case e: ConflictError => Future.successful(Conflict)
+            case _ => Future.successful(InternalServerError)
           }
+          case Right(issue) =>
+            f(issue)
+        }
     }
   }
 
