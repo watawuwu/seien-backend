@@ -5,82 +5,60 @@ package com.fuscus.seien.infra.core
  *
  * Created by watawuwu on 2014/08/18.
  */
-class Error(
-  message: String,
-  code: String = AppResponseCode.UNEXPECTED)
-    extends RuntimeException(message) with AppResponseCode {
-
-  def getCode = code
+trait Error extends AppResponseCode {
+  val message: Option[String]
+  val code: String
 }
 
-class BadRequestError(
-  message: String,
-  code: String = AppResponseCode.BAD_REQUEST)
-    extends Error(message, code) {
+case class BadRequestError(message: Option[String] = None) extends Error {
+  val code = BAD_REQUEST
 }
 
-class UnauthorizedError(
-  message: String,
-  code: String = AppResponseCode.UNAUTHORIZED)
-    extends Error(message, code) {
+case class UnauthorizedError(message: Option[String] = None) extends Error {
+  val code = UNAUTHORIZED
 }
 
-class ForbiddenError(
-  message: String,
-  code: String = AppResponseCode.FORBIDDEN)
-    extends Error(message, code) {
+case class ForbiddenError(message: Option[String] = None) extends Error {
+  val code = FORBIDDEN
 }
 
-class NotFoundError(
-  message: String,
-  code: String = AppResponseCode.NOT_FOUND)
-    extends Error(message, code) {
+case class NotFoundError(message: Option[String] = None) extends Error {
+  val code = NOT_FOUND
 }
 
-class ConflictError(
-  message: String,
-  code: String = AppResponseCode.CONFLICT)
-    extends Error(message, code) {
+case class ConflictError(message: Option[String] = None) extends Error {
+  val code = CONFLICT
 }
 
-class GoneError(
-  message: String,
-  code: String = AppResponseCode.GONE)
-    extends Error(message, code) {
+case class GoneError(message: Option[String] = None) extends Error {
+  val code = GONE
 }
 
-class PreconditionFailedError(
-  message: String,
-  code: String = AppResponseCode.PRECONDITION_FAILED)
-    extends Error(message, code) {
+case class PreconditionFailedError(message: Option[String] = None) extends Error {
+  val code = PRECONDITION_FAILED
 }
 
-class TeaPotError(
-  message: String,
-  code: String = AppResponseCode.TEAPOT)
-    extends Error(message, code) {
+case class TeaPotError(message: Option[String] = None) extends Error {
+  val code = TEAPOT
 }
 
-class UnprocessableEntityError(
-  message: String,
-  code: String = AppResponseCode.UNPROCESSABLE_ENTITY)
-    extends Error(message, code) {
+case class UnprocessableEntityError(message: Option[String] = None) extends Error {
+  val code = UNPROCESSABLE_ENTITY
 }
 
-class LockedError(
-  message: String,
-  code: String = AppResponseCode.LOCKED)
-    extends Error(message, code) {
+case class LockedError(message: Option[String] = None) extends Error {
+  val code = LOCKED
 }
 
-class FailedDependencyError(
-  message: String,
-  code: String = AppResponseCode.FAILED_DEPENDENCY)
-    extends Error(message, code) {
+case class FailedDependencyError(message: Option[String] = None) extends Error {
+  val code = FAILED_DEPENDENCY
 }
 
-class UpgradeRequiredError(
-  message: String,
-  code: String = AppResponseCode.UPGRADE_REQUIRED)
-    extends Error(message, code) {
+case class UpgradeRequiredError(message: Option[String] = None) extends Error {
+  val code = UPGRADE_REQUIRED
 }
+
+case class UnknownError(message: Option[String] = None) extends Error {
+  val code = UNKNOWN
+}
+

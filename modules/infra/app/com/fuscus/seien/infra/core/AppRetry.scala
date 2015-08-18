@@ -23,8 +23,7 @@ trait AppRetry {
         retryExceptions.getOrElse(defaultRetryExceptions): _*)(f)
     } catch {
       case e: RetryException =>
-        // @todo printStackTraceと同等のログ確認
-        throw new Error(e.throwables.map(_.toString).toString())
+        throw new RuntimeException(e.throwables.map(_.toString).toString())
     }
   }
 }

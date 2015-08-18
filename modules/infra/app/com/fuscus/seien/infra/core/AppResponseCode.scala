@@ -19,6 +19,8 @@ trait AppResponseCode {
   val FAILED_DEPENDENCY = "FailedDependency"
   val UPGRADE_REQUIRED = "UpgradeRequired"
 
+  val UNKNOWN = "Unknown"
+
   val INVALIDATE_INPUT = "InvalidateInput"
   val INVALIDATE_ARN = "InvalidateArn"
 }
