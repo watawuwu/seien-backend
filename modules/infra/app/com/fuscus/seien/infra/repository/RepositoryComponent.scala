@@ -1,6 +1,6 @@
 package com.fuscus.seien.infra.repository
 
-import com.fuscus.seien.infra.core.{Entity, Identifier}
+import com.fuscus.seien.infra.core.{ Entity, Identifier }
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import scala.concurrent.Future

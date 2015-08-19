@@ -39,5 +39,4 @@ trait DashBoardRepositoryComponent extends RepositoryComponent[DashBoard, DashBo
     val lockVersion: Rep[Int] = column[Int]("lock_version")
     val isDeleted: Rep[Boolean] = column[Boolean]("is_deleted")
   }
-
 }
