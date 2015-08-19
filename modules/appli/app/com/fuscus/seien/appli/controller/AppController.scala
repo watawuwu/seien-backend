@@ -5,6 +5,7 @@ import com.fuscus.seien.infra.core.AppLogger
 import play.api.Logger
 import play.api.data.Form
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.JsValue
 import play.api.mvc._
 
 import scala.concurrent.Future
@@ -42,5 +43,11 @@ trait AppController extends Controller with AppLogger {
   }
 
   def simpleFormValidate[A](form: Form[A], request: Request[_]): ActionCont[A] =
+    FormCont.hasErrors(form, request)(_ => Future.successful(BadRequest))
+
+  def simpleFormValidate[A](form: Form[A], request: Map[String, String]): ActionCont[A] =
+    FormCont.hasErrors(form, request)(_ => Future.successful(BadRequest))
+
+  def simpleFormValidate[A](form: Form[A], request: JsValue): ActionCont[A] =
     FormCont.hasErrors(form, request)(_ => Future.successful(BadRequest))
 }

@@ -1,6 +1,7 @@
 package com.fuscus.seien.appli.cont
 
 import play.api.data.Form
+import play.api.libs.json.JsValue
 import play.api.mvc.Result
 import play.api.mvc.Request
 import scala.concurrent.Future
@@ -17,4 +18,11 @@ object FormCont {
 
   def hasErrors[A](form: Form[A], request: Request[_])(hasErrors: Form[A] => Future[Result]): ActionCont[A] =
     ActionCont(form.bindFromRequest()(request).fold(hasErrors, _))
+
+  def hasErrors[A](form: Form[A], request: Map[String, String])(hasErrors: Form[A] => Future[Result]): ActionCont[A] =
+    ActionCont(form.bind(request).fold(hasErrors, _))
+
+  def hasErrors[A](form: Form[A], request: JsValue)(hasErrors: Form[A] => Future[Result]): ActionCont[A] =
+    ActionCont(form.bind(request).fold(hasErrors, _))
 }
+
