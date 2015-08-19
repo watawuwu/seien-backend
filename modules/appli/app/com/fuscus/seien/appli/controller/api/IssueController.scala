@@ -12,6 +12,7 @@ import org.json4s._
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 
@@ -29,10 +30,15 @@ trait IssueController extends ApiController with Json4s {
 
   val service: IssueService
 
-  def showCont(id: String): ActionCont[Issue] = {
+  val showForm =
+    Form(mapping("id" -> nonEmptyText(minLength = 36, maxLength = 36)
+      .verifying(Constraints.pattern(UUID.pattern))) // LF
+      (UUID.apply)(UUID.unapplyString))
+
+  def showCont(uuid: UUID): ActionCont[Issue] = {
     ActionCont {
       (f: Issue => Future[Result]) =>
-        service.show(IssueID(UUID(id))).flatMap {
+        service.show(IssueID(uuid)).flatMap {
           case Left(error) =>
             logger.error(error.toString)
             Future.successful(NotFound)
@@ -43,10 +49,13 @@ trait IssueController extends ApiController with Json4s {
   }
 
   def show(id: String) = run { implicit request =>
-    for (issue <- showCont(id)) yield Ok(Extraction.decompose(issue))
+    for {
+      uuid <- simpleFormValidate(showForm, Map("id" -> id))
+      issue <- showCont(uuid)
+    } yield Ok(Extraction.decompose(issue))
   }
 
-  val form = Form(
+  val createForm = Form(
     mapping(
       "title" -> nonEmptyText(maxLength = 128),
       "uri" -> nonEmptyText(maxLength = 1024),
@@ -69,7 +78,7 @@ trait IssueController extends ApiController with Json4s {
 
   def create = run { implicit request =>
     for {
-      input <- simpleFormValidate(form, request)
+      input <- simpleFormValidate(createForm, request)
       issue <- createCont(input)
     } yield Created(Extraction.decompose(issue))
   }
