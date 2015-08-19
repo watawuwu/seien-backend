@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 /**
  * Created by watawuwu on 15/07/02.
  */
-case class SeienID(value: UUID = UUID()) extends Identifier[UUID]
+case class SeienID(value: UUID = UUID.gen) extends Identifier[UUID]
 
 // @todo Abstraction of the base class
 case class Seien(

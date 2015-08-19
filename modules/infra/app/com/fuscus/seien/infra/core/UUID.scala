@@ -12,6 +12,8 @@ case class UUID(private val underlying: UnderlyingUUID) extends Ordered[UUID] {
 
 object UUID {
   def apply(string: CharSequence): UUID = this(new UnderlyingUUID(string))
-  def apply(): UUID = this(new UnderlyingUUID)
   def apply(time: Long, clockSeqAndNode: Long): UUID = this(new UnderlyingUUID(time, clockSeqAndNode))
+  def unapplyString(value: UUID): Option[String] = Some(value.toString)
+  def gen: UUID = this(new UnderlyingUUID)
+  val pattern = """[0-9a-z\-]{8}-[0-9a-z\-]{4}-[0-9a-z\-]{4}-[0-9a-z\-]{4}-[0-9a-z\-]{12}""".r
 }

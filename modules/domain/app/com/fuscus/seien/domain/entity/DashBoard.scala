@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 /**
  * Created by watawuwu on 15/07/02.
  */
-case class DashBoardID(value: UUID = UUID()) extends UniversallyUniqueIdentifier
+case class DashBoardID(value: UUID = UUID.gen) extends UniversallyUniqueIdentifier
 
 case class DashBoard(
     id: DashBoardID = DashBoardID(),

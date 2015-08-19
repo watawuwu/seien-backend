@@ -9,7 +9,7 @@ import org.joda.time.DateTime
  */
 
 // @todo is better to use a type alias
-case class IssueID(value: UUID = UUID()) extends UniversallyUniqueIdentifier
+case class IssueID(value: UUID = UUID.gen) extends UniversallyUniqueIdentifier
 
 case class Issue(
     id: IssueID = IssueID(),
