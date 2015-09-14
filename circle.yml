@@ -19,6 +19,9 @@ dependencies:
 test:
   override:
     - docker run -v ${HOME}/${CIRCLE_PROJECT_REPONAME}/docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v ${HOME}/.ivy2:/root/.ivy2 -v ${HOME}/.sbt:/root/.sbt -v ${HOME}/${CIRCLE_PROJECT_REPONAME}:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt clean coverage test'
+  post:
+    - docker run -e COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN} -v ${HOME}/${CIRCLE_PROJECT_REPONAME}/docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v ${HOME}/.ivy2:/root/.ivy2 -v ${HOME}/.sbt:/root/.sbt -v ${HOME}/${CIRCLE_PROJECT_REPONAME}:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt coverageAggregate coveralls'
+
 
 general:
   artifacts:
@@ -26,9 +29,3 @@ general:
   branches:
     ignore:
       - /debug\/.*/
-
-test:
-  override:
-    - "sbt clean coverage test"
-  post:
-    - "sbt coverageAggregate coveralls"
