@@ -1,28 +1,32 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+    - "~/.sbt"
+    - "~/.ivy2"
+
+  override:
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - docker pull watawuwu/sbt:0.13
+    - if [[ ! -e ~/docker/image.id ]] || [[ -e ~/docker/image.id  && `docker images -q | head -n 1` != `cat ~/docker/image.id` ]]; then mkdir -p ~/docker; docker save watawuwu/sbt:0.13 > ~/docker/image.tar; fi
+    - docker images -q | head -n 1 > ~/docker/image.id
+    - docker run -v docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -v `pwd`/:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt update'
+    - docker info
+
+test:
+  override:
+    - docker run -v docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -v `pwd`/:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt clean coverage test'
+
+
 general:
   artifacts:
     - "target/*/scoverage-report"
   branches:
     ignore:
       - /debug\/.*/
-
-machine:
-  java:
-    version: oraclejdk8
-  environment:
-    SBT_VERSION: 0.13.8
-    SBT_OPTS: "-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled"
-
-dependencies:
-  cache_directories:
-    - "~/.sbt"
-  pre:
-    - wget --output-document=$HOME/bin/sbt-launch.jar
-      https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/"$SBT_VERSION"/sbt-launch.jar
-    - echo "java $SBT_OPTS -jar \`dirname \$0\`/sbt-launch.jar \"\$@\"" > $HOME/bin/sbt
-    - chmod u+x $HOME/bin/sbt
-    - which sbt
-  override:
-    - "sbt update"
 
 test:
   override:
