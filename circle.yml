@@ -13,13 +13,12 @@ dependencies:
     - docker pull watawuwu/sbt:0.13
     - if [[ ! -e ~/docker/image.id ]] || [[ -e ~/docker/image.id  && `docker images -q | head -n 1` != `cat ~/docker/image.id` ]]; then mkdir -p ~/docker; docker save watawuwu/sbt:0.13 > ~/docker/image.tar; fi
     - docker images -q | head -n 1 > ~/docker/image.id
-    - docker run -v docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -v `pwd`/:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt update'
+    - docker run -v docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v /home/ubuntu/.ivy2:/root/.ivy2 -v /home/ubuntu/.sbt:/root/.sbt -v /home/ubuntu/seien-backend:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt update'
     - docker info
 
 test:
   override:
-    - docker run -v docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -v `pwd`/:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt clean coverage test'
-
+    - docker run -v docker/circle-ci/etc/sbt0.13:/opt/sbt/conf -v /home/ubuntu/.ivy2:/root/.ivy2 -v /home/ubuntu/.sbt:/root/.sbt -v /home/ubuntu/seien-backend:/var/app watawuwu/sbt:0.13 /bin/sh -c 'sbt clean coverage test'
 
 general:
   artifacts:
